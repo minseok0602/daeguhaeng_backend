@@ -1,4 +1,4 @@
-package Exception;
+package findshop.DaeguHaeng_backend.Exception;
 
 
 public class LoginFailedException extends RuntimeException {

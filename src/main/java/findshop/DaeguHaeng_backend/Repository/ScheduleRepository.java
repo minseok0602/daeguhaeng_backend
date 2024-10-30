@@ -1,6 +1,6 @@
-package Repository;
+package findshop.DaeguHaeng_backend.Repository;
 
-import domain.Schedule;
+import findshop.DaeguHaeng_backend.domain.Schedule;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

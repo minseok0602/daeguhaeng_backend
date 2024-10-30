@@ -1,4 +1,4 @@
-package DTO;
+package findshop.DaeguHaeng_backend.DTO;
 
 
 import lombok.Getter;

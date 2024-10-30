@@ -1,9 +1,8 @@
-package domain;
+package findshop.DaeguHaeng_backend.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +20,8 @@ public class User {
 
 
     private String userName;
-    @Column(unique = true, nullable = false, name = "user_login_id")
-    private String userLoginID;
+    @Column(unique = true, nullable = false)
+    private String loginId;
     private String userPw;
 
 
@@ -32,7 +31,7 @@ public class User {
 
     static public User createUser(String userName, String userLoginID, String userPw) {
         User user = new User();
-        user.setUserLoginID(userLoginID);
+        user.setLoginId(userLoginID);
         user.setUserName(userName);
         user.setUserPw(userPw);
         return user;
