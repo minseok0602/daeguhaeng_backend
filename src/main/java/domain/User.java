@@ -17,9 +17,6 @@ public class User {
     @Column(name = "user_id")
     private Long Id;
 
-    protected User() {}
-
-
     private String userName;
     @Column(unique = true, nullable = false, name = "user_login_id")
     private String userLoginID;
