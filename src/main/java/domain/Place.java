@@ -4,6 +4,7 @@ package domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +25,12 @@ public abstract class Place {
     private Double rate;
     private Double latitude;
     private Double longitude;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="place_id")
+    private PlaceImage placeImageId;
 
     @OneToMany(mappedBy = "place")
     private List<Review> reviews = new ArrayList<Review>();
-
 
 
 
