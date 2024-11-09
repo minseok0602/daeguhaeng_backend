@@ -9,4 +9,13 @@ import lombok.Setter;
 @Getter @Setter
 @DiscriminatorValue("R")
 public class Restaurant extends Place{
+    public Restaurant createRestaurant(String address, Double rate, Double latitude, Double longitude) {
+        Restaurant place = new Restaurant();
+        place.setAddress(address);
+        place.setLatitude(latitude);
+        place.setLongitude(longitude);
+        place.setRate(rate);
+        return place;
+    }
+
 }
