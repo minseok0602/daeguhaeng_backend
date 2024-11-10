@@ -1,6 +1,7 @@
 package domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +19,10 @@ public class User {
     private Long Id;
 
     private String userName;
-    @Column(unique = true, nullable = false, name = "user_login_id")
+    @Column(unique = true, name = "user_login_id")
+    @NotNull
     private String userLoginID;
+    @NotNull
     private String userPw;
 
 

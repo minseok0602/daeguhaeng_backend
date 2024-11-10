@@ -1,6 +1,7 @@
 package domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,10 +25,15 @@ public class Plan {
 
     @OneToMany(mappedBy = "plan")
     private List<Schedule> schedules = new ArrayList<Schedule>();
+    @NotNull
     private int budget;
+    @NotNull
     private Sex sex;
+    @NotNull
     private int age;
+    @NotNull
     private Date startDate;
+    @NotNull
     private Date endDate;
     public void setUser(User user) {
         this.user = user;

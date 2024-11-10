@@ -2,6 +2,7 @@ package domain;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.Profile;
@@ -19,11 +20,15 @@ public abstract class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "place_id")
     private Long Id;
-
+    @NotNull
     private String name;
+    @NotNull
     private String address;
+    @NotNull
     private Double rate;
+    @NotNull
     private Double latitude;
+    @NotNull
     private Double longitude;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="place_id")
