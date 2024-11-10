@@ -31,7 +31,7 @@ public abstract class Place {
     @NotNull
     private Double longitude;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="place_id")
+    @JoinColumn(name="place_iamge_id")
     private PlaceImage placeImageId;
 
     @OneToMany(mappedBy = "place")
