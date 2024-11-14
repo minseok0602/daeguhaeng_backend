@@ -43,7 +43,7 @@ public class UserService {
     // 2. 회원가입
     public LoginResponseDTO register(RegisterRequestDTO dto){
         validateDuplicateUser(dto.getUserLoginId());
-        User newUser = User.createUser(dto.getUserName(), dto.getUserLoginId(), dto.getPassword());
+        User newUser = User.createUser(dto.getUsername(), dto.getUserLoginId(), dto.getPassword());
         userRepository.save(newUser);
         LoginResponseDTO resDto = new LoginResponseDTO();
         resDto.setLoginId(newUser.getLoginId());

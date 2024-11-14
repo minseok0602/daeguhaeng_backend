@@ -83,7 +83,7 @@ public class UserServiceTest {
     public void 회원가입_성공() throws Exception{
         //given : test_id, test_pw에 대한 회원가입
         RegisterRequestDTO reqdto = new RegisterRequestDTO();
-        reqdto.setUserName("test");
+        reqdto.setUsername("test");
         reqdto.setUserLoginId("test_id");
         reqdto.setPassword("test_pw");
 
@@ -104,7 +104,7 @@ public class UserServiceTest {
 
 
         RegisterRequestDTO reqdto = new RegisterRequestDTO();
-        reqdto.setUserName("test");
+        reqdto.setUsername("test");
         reqdto.setUserLoginId("test_id");
         reqdto.setPassword("test_pw");
 

@@ -9,5 +9,4 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class LoginResponseDTO {
     private String loginId;
-    private Long userId;
 }
