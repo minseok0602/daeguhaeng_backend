@@ -1,13 +1,11 @@
 package findshop.DaeguHaeng_backend.DTO;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
-@Getter
-@Setter
 @RequiredArgsConstructor
-public class LoginResponseDTO {
-    private String loginId;
+@Getter@Setter
+public class UserDTO {
+    private String userName;
     private Long userId;
+    private String loginId;
 }
