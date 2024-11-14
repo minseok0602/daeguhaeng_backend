@@ -15,17 +15,21 @@ public class PlanRepository {
     private final EntityManager em;
 
 
-    // findOne
-    public Plan findOne(Long id){
+    public void save(Plan plan) {
+        em.persist(plan);
+    }
+
+    public Plan findById(Long id) {
         return em.find(Plan.class, id);
     }
 
-    // findAll
-    public List<Plan> findAll(){
-        return em.createQuery("select p from Plan p", Plan.class).getResultList();
+    public List<Plan> findByUserId(Long userId) {
+
     }
 
-
+    public void delete(Plan plan) {
+        em.remove(plan);
+    }
 
 
 

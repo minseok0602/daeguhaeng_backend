@@ -1,5 +1,6 @@
-package domain;
+package findshop.DaeguHaeng_backend.domain;
 
+import findshop.DaeguHaeng_backend.domain.Plan;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

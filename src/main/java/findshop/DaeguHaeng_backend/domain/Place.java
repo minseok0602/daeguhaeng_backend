@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.annotation.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
