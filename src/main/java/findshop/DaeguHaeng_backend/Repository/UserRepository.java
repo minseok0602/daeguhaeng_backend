@@ -17,12 +17,13 @@ public class UserRepository {
     }
 
 
-    public List<User> findByLoginId(String loginId) {
-        String jpql = "SELECT u FROM User u WHERE u.loginId = :loginId";
-        return em.createQuery(jpql, User.class).setParameter("loginId", loginId).getResultList();
+    public User findByLoginId(String loginId) {
+        return em.find(User.class, loginId);
+     }
+
+    public User findById(Long id) {
+        return em.find(User.class, id);
     }
-
-
 
 
 }
