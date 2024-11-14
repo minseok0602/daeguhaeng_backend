@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Schedule {
@@ -23,9 +24,9 @@ public class Schedule {
     @NotNull
     private Place place;
     @NotNull
-    private LocalDate startdate;
+    private LocalDateTime startTime;
     @NotNull
-    private LocalDate enddate;
+    private LocalDateTime endTime;
 
     private String scheduleText;
     static public Schedule createSchedule(Place place, String scheduleText){
