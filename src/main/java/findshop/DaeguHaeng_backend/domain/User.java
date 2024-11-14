@@ -1,8 +1,10 @@
-package findshop.DaeguHaeng_backend.domain;
+package domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +17,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long Id;
-
-    protected User() {}
-
-
+    @NotNull
     private String userName;
-    @Column(unique = true, nullable = false)
-    private String loginId;
+    @Column(unique = true, name = "user_login_id")
+    @NotNull
+    private String userLoginID;
+    @NotNull
     private String userPw;
 
 
@@ -31,7 +32,7 @@ public class User {
 
     static public User createUser(String userName, String userLoginID, String userPw) {
         User user = new User();
-        user.setLoginId(userLoginID);
+        user.setUserLoginID(userLoginID);
         user.setUserName(userName);
         user.setUserPw(userPw);
         return user;
