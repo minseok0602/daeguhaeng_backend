@@ -36,7 +36,7 @@ public class UserService {
         }
 
         LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
-        loginResponseDTO.setLoginId(user.getUserLoginID());
+        loginResponseDTO.setLoginId(user.getLoginId());
         return loginResponseDTO;
     }
 
@@ -46,7 +46,7 @@ public class UserService {
         User newUser = User.createUser(dto.getUserName(), dto.getUserLoginId(), dto.getPassword());
         userRepository.save(newUser);
         LoginResponseDTO resDto = new LoginResponseDTO();
-        resDto.setLoginId(newUser.getUserLoginID());
+        resDto.setLoginId(newUser.getLoginId());
         return resDto;
     }
 
