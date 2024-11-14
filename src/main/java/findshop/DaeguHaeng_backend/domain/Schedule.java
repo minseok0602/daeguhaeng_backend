@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -18,8 +19,8 @@ public class Schedule {
     @JoinColumn(name = "plan_id")
     private Plan plan;
 
-    private LocalDate startdate;
-    private LocalDate enddate;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     private String scheduleText;
 
