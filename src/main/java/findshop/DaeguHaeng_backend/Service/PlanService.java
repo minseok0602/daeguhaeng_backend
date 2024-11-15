@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PlanService {
 
@@ -24,6 +24,7 @@ public class PlanService {
     @Autowired
     private final UserRepository userRepository;
 
+    @Transactional
     public PlanResponseDTO initPlan(Long userId, PlanRequestDTO request){
         User user = userRepository.findById(userId);
         if(user == null) throw new IllegalStateException("존재하지 않는 User");
@@ -48,6 +49,7 @@ public class PlanService {
         return planDTOs;
     }
 
+    @Transactional
     public PlanResponseDTO updatePlan(Long planId, PlanRequestDTO request){
         Plan plan = planRepository.findById(planId);
         plan.setStartDate(request.getStartDate());
@@ -61,6 +63,7 @@ public class PlanService {
         return plan.planResponseDTO();
     }
 
+    @Transactional
     public void deletePlan(Long planId){
         Plan plan = planRepository.findById(planId);
         if(plan != null)

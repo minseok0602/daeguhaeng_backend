@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserService {
 
@@ -35,7 +35,7 @@ public class UserService {
         return user.loginResponseDTO();
     }
 
-
+    @Transactional
     public LoginResponseDTO register(RegisterRequestDTO dto){
         validateDuplicateUser(dto.getUserLoginId());
         User newUser = User.createUser(dto.getUsername(), dto.getUserLoginId(), dto.getPassword());
@@ -60,7 +60,7 @@ public class UserService {
 
         return user.userDTO();
     }
-
+    @Transactional
     public UserDTO modifyUserName(Long userId, String newUserName){
         User user = userRepository.findById(userId);
 
@@ -73,6 +73,7 @@ public class UserService {
         return user.userDTO();
     }
 
+    @Transactional
     public UserDTO modifyPassword(Long userId, String currentPw, String newPw){
         if(!isValidPassword(newPw)){
             throw new IllegalStateException("올바르지 않은 비밀번호 형식");

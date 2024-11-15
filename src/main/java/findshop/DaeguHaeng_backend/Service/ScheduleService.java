@@ -8,7 +8,7 @@ import findshop.DaeguHaeng_backend.Repository.ScheduleRepository;
 import findshop.DaeguHaeng_backend.domain.Place;
 import findshop.DaeguHaeng_backend.domain.Plan;
 import findshop.DaeguHaeng_backend.domain.Schedule;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class ScheduleService {
     @Autowired
     private final ScheduleRepository scheduleRepository;
@@ -27,6 +27,7 @@ public class ScheduleService {
     @Autowired
     private final PlaceRepository placeRepository;
 
+    @Transactional
     public ScheduleResponseDTO modifySchedule(Long scheduleId, ScheduleRequestDTO dto){
         Schedule schedule = scheduleRepository.findById(scheduleId);
         if(schedule == null) throw new IllegalStateException("존재하지 않는 schedule");
@@ -57,6 +58,7 @@ public class ScheduleService {
         return schedule.scheduleResponseDTO();
     }
 
+    @Transactional
     public void deleteSchedule(Long scheduleId){
         Schedule schedule = scheduleRepository.findById(scheduleId);
         if(schedule != null)
