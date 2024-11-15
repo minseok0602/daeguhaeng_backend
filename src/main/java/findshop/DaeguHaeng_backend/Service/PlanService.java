@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true) // DB에 트랜잭션하겟다 이말이지 그치~
-// atomic한 수정작업 할거임 ㅇㅋ?
+@Transactional
 @RequiredArgsConstructor
 public class PlanService {
 
@@ -27,20 +27,38 @@ public class PlanService {
     public PlanResponseDTO initPlan(Long userId, PlanRequestDTO request){
         User user = userRepository.findById(userId);
         if(user == null) throw new IllegalStateException("존재하지 않는 User");
+
         Plan newPlan = Plan.createPlan(user);
         newPlan.setDetail(request.getBudget(), request.getSex(), request.getAge(), request.getStartDate(), request.getEndDate());
+        planRepository.save(newPlan);
 
-        PlanResponseDTO response = new PlanResponseDTO();
-
-
+        return newPlan.planResponseDTO();
     }
 
     public List<PlanResponseDTO> findPlans(Long userId){
+        User user = userRepository.findById(userId);
+        if(user == null) throw new IllegalStateException("존재하지 않는 User");
+        List<Plan> plans = user.getPlans();
 
+        List<PlanResponseDTO> planDTOs = new ArrayList<>();
+
+        for(Plan plan : plans)
+            planDTOs.add(plan.planResponseDTO());
+
+        return planDTOs;
     }
 
     public PlanResponseDTO updatePlan(Long planId, PlanRequestDTO request){
+        Plan plan = planRepository.findById(planId);
+        plan.setStartDate(request.getStartDate());
+        plan.setEndDate(request.getEndDate());
+        plan.setSex(request.getSex());
+        plan.setAge(request.getAge());
+        plan.setBudget(request.getBudget());
 
+        planRepository.save(plan);
+
+        return plan.planResponseDTO();
     }
 
     public void deletePlan(Long planId){
@@ -48,7 +66,5 @@ public class PlanService {
         if(plan != null)
             planRepository.delete(plan);
     }
-
-
 
 }

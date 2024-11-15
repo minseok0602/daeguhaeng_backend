@@ -14,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-@Transactional // DB에 트랜잭션하겟다 이말이지 그치~
-// atomic한 수정작업 할거임 ㅇㅋ?
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
 
@@ -23,7 +22,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     public LoginResponseDTO logIn(LoginRequestDTO dto) {
-        User user = userRepository.findByLoginId(dto.getLoginId()); // user를 dto의 loginID 이걸로 뽑음
+        User user = userRepository.findByLoginId(dto.getLoginId());
 
         if(user == null){
             throw new IllegalStateException("해당 사용자 ID가 존재하지 않습니다.");
@@ -36,7 +35,7 @@ public class UserService {
         return user.loginResponseDTO();
     }
 
-    // 2. 회원가입
+
     public LoginResponseDTO register(RegisterRequestDTO dto){
         validateDuplicateUser(dto.getUserLoginId());
         User newUser = User.createUser(dto.getUsername(), dto.getUserLoginId(), dto.getPassword());
@@ -84,6 +83,8 @@ public class UserService {
             throw new IllegalStateException("존재하지 않는 user");
 
         user.setUserPw(newPw);
+        userRepository.save(user);
+
         return user.userDTO();
     }
 
