@@ -25,7 +25,7 @@ public class Plan {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "plan")
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     private List<Schedule> schedules = new ArrayList<Schedule>();
     @NotNull
     private int budget;

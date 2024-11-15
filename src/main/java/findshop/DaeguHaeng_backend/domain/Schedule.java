@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter @Setter
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,9 +37,12 @@ public class Schedule {
         schedule.place = place;
         return schedule;
     }
+
     public void setPlan(Plan plan) {
         this.plan = plan;
+        plan.addSchedule(this);
     }
+
     public void setPlace(Place place) {
         this.place = place;
     }

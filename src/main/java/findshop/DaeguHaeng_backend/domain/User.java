@@ -29,7 +29,7 @@ public class User {
     private String userPw;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Plan> plans = new ArrayList<Plan>();
 
 
