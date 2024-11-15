@@ -23,20 +23,9 @@ public class PlanRepository {
         return em.find(Plan.class, id);
     }
 
-    public List<Plan> findByUserId(Long userId) {
-
-    }
 
     public void delete(Plan plan) {
         em.remove(plan);
     }
-
-
-
-
-
-
-
-
 
 }
