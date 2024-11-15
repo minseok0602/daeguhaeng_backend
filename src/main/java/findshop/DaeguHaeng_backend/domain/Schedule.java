@@ -1,5 +1,7 @@
 package findshop.DaeguHaeng_backend.domain;
 
+import findshop.DaeguHaeng_backend.DTO.ScheduleRequestDTO;
+import findshop.DaeguHaeng_backend.DTO.ScheduleResponseDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -39,6 +41,14 @@ public class Schedule {
     }
     public void setPlace(Place place) {
         this.place = place;
+    }
+
+    public ScheduleRequestDTO scheduleRequestDTO(){
+        return new ScheduleRequestDTO(plan.getId(), startTime, endTime, scheduleText, place.getId());
+    }
+
+    public ScheduleResponseDTO scheduleResponseDTO(){
+        return new ScheduleResponseDTO(Id, startTime, endTime, scheduleText, place.getId());
     }
 
 }

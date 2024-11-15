@@ -1,12 +1,14 @@
 package findshop.DaeguHaeng_backend.domain;
 
+import findshop.DaeguHaeng_backend.DTO.PlanRequestDTO;
+import findshop.DaeguHaeng_backend.DTO.PlanResponseDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -32,9 +34,9 @@ public class Plan {
     @NotNull
     private int age;
     @NotNull
-    private Date startDate;
+    private LocalDate startDate;
     @NotNull
-    private Date endDate;
+    private LocalDate endDate;
     public void setUser(User user) {
         this.user = user;
         user.getPlans().add(this);
@@ -47,12 +49,20 @@ public class Plan {
     public void addSchedule(Schedule schedule) {
         schedules.add(schedule);
     }
-    public void setDetail(int budget, Sex sex, int age, Date startDate, Date endDate) {
+    public void setDetail(int budget, Sex sex, int age, LocalDate startDate, LocalDate endDate) {
         this.budget = budget;
         this.sex = sex;
         this.age = age;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public PlanResponseDTO planResponseDTO(){
+        return new PlanResponseDTO(Id, sex, age, startDate, endDate, budget);
+    }
+
+    public PlanRequestDTO planRequestDTO(){
+        return new PlanRequestDTO(user.getId(), startDate, endDate, sex, age, budget);
     }
 
 
