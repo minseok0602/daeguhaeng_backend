@@ -3,6 +3,7 @@ package findshop.DaeguHaeng_backend.Service;
 import findshop.DaeguHaeng_backend.DTO.LoginRequestDTO;
 import findshop.DaeguHaeng_backend.DTO.LoginResponseDTO;
 import findshop.DaeguHaeng_backend.DTO.RegisterRequestDTO;
+import findshop.DaeguHaeng_backend.DTO.UserDTO;
 import findshop.DaeguHaeng_backend.Repository.UserRepository;
 import findshop.DaeguHaeng_backend.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -10,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+
 
 @Service
-@Transactional(readOnly = true) // DB에 트랜잭션하겟다 이말이지 그치~
+@Transactional // DB에 트랜잭션하겟다 이말이지 그치~
 // atomic한 수정작업 할거임 ㅇㅋ?
 @RequiredArgsConstructor
 public class UserService {
@@ -21,22 +22,20 @@ public class UserService {
     @Autowired
     private final UserRepository userRepository;
 
-    // 1. 로그인
-    // 로그인 근데 뭐 리턴해야됨? 성공하면?
     public LoginResponseDTO logIn(LoginRequestDTO dto) {
-        List<User> users = userRepository.findByLoginId(dto.getLoginId()); // user를 dto의 loginID 이걸로 뽑음
+        User user = userRepository.findByLoginId(dto.getLoginId()); // user를 dto의 loginID 이걸로 뽑음
 
-        if(users.isEmpty()){
+        if(user == null){
             throw new IllegalStateException("해당 사용자 ID가 존재하지 않습니다.");
         }
 
-        User user = users.get(0);
         if(!user.getUserPw().equals(dto.getPassword())){
             throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
         }
 
         LoginResponseDTO loginResponseDTO = new LoginResponseDTO();
         loginResponseDTO.setLoginId(user.getUserLoginID());
+        loginResponseDTO.setUserId(user.getId());
         return loginResponseDTO;
     }
 
@@ -52,24 +51,71 @@ public class UserService {
 
 
     private void validateDuplicateUser(String userLoginId){
-        List<User> users = userRepository.findByLoginId(userLoginId);
-        if(!users.isEmpty()){
+        User user = userRepository.findByLoginId(userLoginId);
+        if(user != null){
             throw new IllegalStateException("이미 존재하는 LoginID");
         }
     }
 
 
+    public UserDTO findOne(Long userId){
+        User user = userRepository.findById(userId);
+        if(user == null)
+            throw new IllegalStateException("존재하지 않는 user");
 
-    // 3. 계정 찾기
+        UserDTO dto = new UserDTO();
+        dto.setUserName(user.getUserName());
+        dto.setUserId(user.getId());
+        dto.setLoginId(user.getUserLoginID());
+
+        return dto;
+    }
+
+    public UserDTO modifyUserName(Long userId, String newUserName){
+        User user = userRepository.findById(userId);
+
+        if(user == null)
+            throw new IllegalStateException("존재하지 않는 user");
+
+        user.setUserName(newUserName);
+        userRepository.save(user);
+
+        UserDTO dto = new UserDTO();
+        dto.setUserName(user.getUserName());
+        dto.setUserId(user.getId());
+        dto.setLoginId(user.getUserLoginID());
+
+        return dto;
+    }
+
+    public UserDTO modifyPassword(Long userId, String currentPw, String newPw){
+        if(!isValidPassword(newPw)){
+            throw new IllegalStateException("올바르지 않은 비밀번호 형식");
+        }
 
 
-    // 4. 로그아웃 : frontend에서
 
+        User user = userRepository.findById(userId);
 
-    // 5. 내 정보 보기 by loginId
+        if(user == null)
+            throw new IllegalStateException("존재하지 않는 user");
 
+        user.setUserPw(newPw);
 
+        UserDTO dto = new UserDTO();
+        dto.setUserName(user.getUserName());
+        dto.setUserId(user.getId());
+        dto.setLoginId(user.getUserLoginID());
 
+        return dto;
+    }
+
+    private boolean isValidPassword(String password){
+        // password 형식 : 특수문자(!,@,#,$,, 영문, 숫자 반드시 포함하는 8자리 이상
+        String regex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$]).{8,}$";
+
+        return password.matches(regex);
+    }
 
 
 
