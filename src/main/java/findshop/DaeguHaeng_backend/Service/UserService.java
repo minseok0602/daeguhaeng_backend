@@ -1,9 +1,6 @@
 package findshop.DaeguHaeng_backend.Service;
 
-import findshop.DaeguHaeng_backend.DTO.LoginRequestDTO;
-import findshop.DaeguHaeng_backend.DTO.LoginResponseDTO;
-import findshop.DaeguHaeng_backend.DTO.RegisterRequestDTO;
-import findshop.DaeguHaeng_backend.DTO.UserDTO;
+import findshop.DaeguHaeng_backend.DTO.*;
 import findshop.DaeguHaeng_backend.Repository.UserRepository;
 import findshop.DaeguHaeng_backend.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -74,16 +71,18 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO modifyPassword(Long userId, String currentPw, String newPw){
-        if(!isValidPassword(newPw)){
+    public UserDTO modifyPassword(Long userId, UpdatePasswordDTO dto){
+        if(!isValidPassword(dto.getNewPassword())){
             throw new IllegalStateException("올바르지 않은 비밀번호 형식");
         }
         User user = userRepository.findById(userId);
 
         if(user == null)
             throw new IllegalStateException("존재하지 않는 user");
-
-        user.setUserPw(newPw);
+        else if(!user.getUserPw().equals(dto.getNewPassword())){
+            throw new IllegalStateException("올바르지 않은 비밀번호");
+        }
+        user.setUserPw(dto.getNewPassword());
         userRepository.save(user);
 
         return user.userDTO();
