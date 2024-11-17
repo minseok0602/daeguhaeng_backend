@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
+@RequestMapping("/api/")
 public class UserController {
     private final UserService userService;
     @PostMapping("/register")
@@ -36,10 +36,10 @@ public class UserController {
     }
 
 
-    @PutMapping("/{userId}/name")
-    public ResponseEntity<String> updateUserName(@PathVariable Long userId, @RequestBody String newName) {
+    @PutMapping("/{id}/name")
+    public ResponseEntity<String> updateUserName(@PathVariable Long id, @RequestBody String newName) {
         try{
-            UserDTO isUpdated = userService.modifyUserName(userId,newName);
+            userService.modifyUserName(id,newName);
         }catch (Exception e) {
             return new ResponseEntity<>("User update failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -49,7 +49,7 @@ public class UserController {
     @PutMapping("/{userId}/settings")
     public ResponseEntity<String> updatePassword(@PathVariable Long userId, @RequestBody UpdatePasswordDTO updatePasswordDTO) {
         try{
-            UserDTO isUpdated = userService.modifyPassword(userId, updatePasswordDTO);
+            userService.modifyPassword(userId, updatePasswordDTO);
         }catch (Exception e) {
             return new ResponseEntity<>("User update failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
