@@ -1,7 +1,6 @@
-package Repository;
+package findshop.DaeguHaeng_backend.Repository;
 
-import domain.Plan;
-import jakarta.persistence.Entity;
+import findshop.DaeguHaeng_backend.domain.Plan;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
