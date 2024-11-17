@@ -43,10 +43,9 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/api/recomands/{userId}/{planId}")//schedule은 http 경로에 id가 안 나올듯
-    public ResponseEntity<?> deleteSchedule(@PathVariable Long planId) {
+    public ResponseEntity<?> deleteSchedule(@RequestBody ScheduleResponseDTO scheduleResponseDTO) {
         try{
-
-            scheduleService.deleteSchedule(planId);
+            scheduleService.deleteSchedule(scheduleResponseDTO.getScheduleId());
         }catch(Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
