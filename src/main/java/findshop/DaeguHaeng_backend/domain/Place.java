@@ -1,11 +1,11 @@
 package findshop.DaeguHaeng_backend.domain;
 
 
+import findshop.DaeguHaeng_backend.DTO.PlaceDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.context.annotation.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,8 @@ public abstract class Place {
     @OneToMany(mappedBy = "place")
     private List<Review> reviews = new ArrayList<Review>();
 
-
-
+    public PlaceDTO placeDTO(){
+        return new PlaceDTO(name, address, rate, latitude, longitude);
+    }
 
 }

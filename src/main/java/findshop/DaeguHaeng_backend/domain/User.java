@@ -1,10 +1,13 @@
-package domain;
+package findshop.DaeguHaeng_backend.domain;
 
+import findshop.DaeguHaeng_backend.DTO.LoginRequestDTO;
+import findshop.DaeguHaeng_backend.DTO.LoginResponseDTO;
+import findshop.DaeguHaeng_backend.DTO.RegisterRequestDTO;
+import findshop.DaeguHaeng_backend.DTO.UserDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +29,7 @@ public class User {
     private String userPw;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Plan> plans = new ArrayList<Plan>();
 
 
@@ -37,5 +40,22 @@ public class User {
         user.setUserPw(userPw);
         return user;
     }
+
+    public UserDTO userDTO() {
+        return new UserDTO(userName, Id, userLoginID);
+    }
+
+    public LoginRequestDTO loginRequestDTO(){
+        return new LoginRequestDTO(userLoginID, userPw);
+    }
+
+    public LoginResponseDTO loginResponseDTO(){
+        return new LoginResponseDTO(userLoginID, Id);
+    }
+
+    public RegisterRequestDTO registerRequestDTO(){
+        return new RegisterRequestDTO(userName, userLoginID, userPw);
+    }
+
 
 }
