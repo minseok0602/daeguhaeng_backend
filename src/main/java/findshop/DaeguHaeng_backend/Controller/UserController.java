@@ -36,7 +36,7 @@ public class UserController {
     }
 
 
-    @PutMapping("/{id}/name")
+    @PutMapping("/{id}/updateName")
     public ResponseEntity<String> updateUserName(@PathVariable Long id, @RequestBody String newName) {
         try{
             userService.modifyUserName(id,newName);
