@@ -26,26 +26,26 @@ public class ScheduleController {
         }
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.CREATED);
     }
-    @GetMapping("/api/recomands/{userId}/{planId}")
+    @GetMapping("/api/recomands/{userId}/{planId}/schedules")
     public ResponseEntity<?> getSchedule(@PathVariable long planId) {
         List<?> schedules = scheduleService.findByPlanId(planId);
         return new ResponseEntity<>(schedules,HttpStatus.OK);
     }
-    @PutMapping("/api/recomands/{userId}/{planId}")
-    public ResponseEntity<?> modifySchedule(@PathVariable Long userId, @RequestBody ScheduleRequestDTO scheduleRequestDTO) {
+    @PutMapping("/api/recomands/{userId}/{planId}/modify/{scheduleId}")
+    public ResponseEntity<?> modifySchedule(@PathVariable Long scheduleId, @RequestBody ScheduleRequestDTO scheduleRequestDTO) {
         ScheduleResponseDTO scheduleResponseDTO;
         try {
-            scheduleResponseDTO = scheduleService.modifySchedule(userId, scheduleRequestDTO);
+            scheduleResponseDTO = scheduleService.modifySchedule(scheduleId, scheduleRequestDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/recomands/{userId}/{planId}")//schedule은 http 경로에 id가 안 나올듯
-    public ResponseEntity<?> deleteSchedule(@RequestBody ScheduleResponseDTO scheduleResponseDTO) {
+    @DeleteMapping("/api/recomands/{userId}/{planId}/delete/{scheduleId}")
+    public ResponseEntity<?> deleteSchedule(@PathVariable Long scheduleId) {
         try{
-            scheduleService.deleteSchedule(scheduleResponseDTO.getScheduleId());
+            scheduleService.deleteSchedule(scheduleId);
         }catch(Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

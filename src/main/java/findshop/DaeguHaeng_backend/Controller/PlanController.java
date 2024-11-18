@@ -19,7 +19,7 @@ import java.util.List;
 public class PlanController {
     private final PlanService planService;
 
-    @PostMapping("/api/recomands/{id}")
+    @PostMapping("/api/recomands/{id}/new")
     public ResponseEntity<?> createPlan(@PathVariable Long id, @RequestBody PlanRequestDTO planRequestDTO) {
         PlanResponseDTO planResponseDTO;
         try {
@@ -29,25 +29,25 @@ public class PlanController {
         }
         return new ResponseEntity<>(planResponseDTO, HttpStatus.CREATED);
     }
-    @GetMapping("/api/{id}/plans")
-    public ResponseEntity<?> getAllPlans(@PathVariable Long id) {
-        List<PlanResponseDTO> plans = planService.findPlans(id);
+    @GetMapping("/api/{userId}/plans")
+    public ResponseEntity<?> getAllPlans(@PathVariable Long userId) {
+        List<PlanResponseDTO> plans = planService.findPlans(userId);
         return new ResponseEntity<>(plans,HttpStatus.OK);
     }
 
-    @PutMapping("/api/{id}/plans")
-    public ResponseEntity<Plan> updatePlan(@PathVariable Long id, @RequestBody PlanRequestDTO planRequestDTO) {
-        try{ planService.updatePlan(id,planRequestDTO);
+    @PutMapping("/api/{userId}/plans/update/{planId}")
+    public ResponseEntity<?> updatePlan(@PathVariable Long planId, @RequestBody PlanRequestDTO planRequestDTO) {
+        try{ planService.updatePlan(planId,planRequestDTO);
         }catch(Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/{id}/plans")
-    public ResponseEntity<String> deletePlan(@PathVariable Long id) {
+    @DeleteMapping("/api/{userId}/plans/delete/{planId}")
+    public ResponseEntity<?> deletePlan(@PathVariable Long planId) {
         try{
-            planService.deletePlan(id);
+            planService.deletePlan(planId);
         }catch(Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
