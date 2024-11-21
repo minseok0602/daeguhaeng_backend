@@ -17,12 +17,8 @@ import java.util.List;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
-<<<<<<< HEAD
-    @PostMapping("/api/recommends/{userId}/{planId}")
-=======
 
     @PostMapping("/{userid}/create/{planId}")
->>>>>>> origin/master
     public ResponseEntity<?> createSchedule(@RequestBody ScheduleRequestDTO scheduleRequestDto) {
         ScheduleResponseDTO scheduleResponseDTO;
         try{
@@ -32,14 +28,6 @@ public class ScheduleController {
         }
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.CREATED);
     }
-<<<<<<< HEAD
-    @GetMapping("/api/recommends/{userId}/{planId}/schedules")
-    public ResponseEntity<?> getSchedule(@PathVariable long planId) {
-        List<?> schedules = scheduleService.findByPlanId(planId);
-        return new ResponseEntity<>(schedules,HttpStatus.OK);
-    }
-    @PutMapping("/api/recommends/{userId}/{planId}/modify/{scheduleId}")
-=======
 
     @GetMapping("/{userId}/get/{planId}")
     public ResponseEntity<?> getSchedule(@PathVariable Long planId) {
@@ -48,7 +36,6 @@ public class ScheduleController {
     }
 
     @PutMapping("/{userId}/modify/{planId}/{scheduleId}")
->>>>>>> origin/master
     public ResponseEntity<?> modifySchedule(@PathVariable Long scheduleId, @RequestBody ScheduleRequestDTO scheduleRequestDTO) {
         ScheduleResponseDTO scheduleResponseDTO;
         try {
@@ -59,11 +46,7 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.OK);
     }
 
-<<<<<<< HEAD
-    @DeleteMapping("/api/recommends/{userId}/{planId}/delete/{scheduleId}")
-=======
     @DeleteMapping("/{userId}/delete/{planId}/{scheduleId}")
->>>>>>> origin/master
     public ResponseEntity<?> deleteSchedule(@PathVariable Long scheduleId) {
         try{
             scheduleService.deleteSchedule(scheduleId);
