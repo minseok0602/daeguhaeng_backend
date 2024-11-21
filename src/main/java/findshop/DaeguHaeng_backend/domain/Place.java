@@ -25,20 +25,11 @@ public abstract class Place {
     @NotNull
     private String address;
     @NotNull
-    private Double rate;
+    private float rate;
     @NotNull
-    private Double latitude;
-    @NotNull
-    private Double longitude;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="place_iamge_id")
-    private PlaceImage placeImageId;
-
-    @OneToMany(mappedBy = "place")
-    private List<Review> reviews = new ArrayList<Review>();
-
+    private String imageURL;
     public PlaceDTO placeDTO(){
-        return new PlaceDTO(name, address, rate, latitude, longitude);
+        return new PlaceDTO(name, address, rate, imageURL);
     }
 
 }
