@@ -28,8 +28,12 @@ public abstract class Place {
     private float rate;
     @NotNull
     private String imageURL;
-    public PlaceDTO placeDTO(){
-        return new PlaceDTO(name, address, rate, imageURL);
+    public Place(String name, String address, float rate, String imageURL) {
+        this.name = name;
+        this.address = address;
+        this.rate = rate;
+        this.imageURL = imageURL;
+
     }
 
 }
