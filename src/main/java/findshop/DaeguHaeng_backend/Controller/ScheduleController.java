@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScheduleController {
     private final ScheduleService scheduleService;
-    @PostMapping("/api/recomands/{userId}/{planId}")
+    @PostMapping("/api/recommends/{userId}/{planId}")
     public ResponseEntity<?> createSchedule(@RequestBody ScheduleRequestDTO scheduleRequestDto) {
         ScheduleResponseDTO scheduleResponseDTO;
         try{
@@ -26,12 +26,12 @@ public class ScheduleController {
         }
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.CREATED);
     }
-    @GetMapping("/api/recomands/{userId}/{planId}/schedules")
+    @GetMapping("/api/recommends/{userId}/{planId}/schedules")
     public ResponseEntity<?> getSchedule(@PathVariable long planId) {
         List<?> schedules = scheduleService.findByPlanId(planId);
         return new ResponseEntity<>(schedules,HttpStatus.OK);
     }
-    @PutMapping("/api/recomands/{userId}/{planId}/modify/{scheduleId}")
+    @PutMapping("/api/recommends/{userId}/{planId}/modify/{scheduleId}")
     public ResponseEntity<?> modifySchedule(@PathVariable Long scheduleId, @RequestBody ScheduleRequestDTO scheduleRequestDTO) {
         ScheduleResponseDTO scheduleResponseDTO;
         try {
@@ -42,7 +42,7 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/recomands/{userId}/{planId}/delete/{scheduleId}")
+    @DeleteMapping("/api/recommends/{userId}/{planId}/delete/{scheduleId}")
     public ResponseEntity<?> deleteSchedule(@PathVariable Long scheduleId) {
         try{
             scheduleService.deleteSchedule(scheduleId);
