@@ -35,6 +35,7 @@ public class Schedule {
     static public Schedule createSchedule(Place place, String scheduleText){
         Schedule schedule = new Schedule();
         schedule.place = place;
+        schedule.scheduleText = scheduleText;
         return schedule;
     }
 
