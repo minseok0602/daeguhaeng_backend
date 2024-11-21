@@ -12,8 +12,6 @@ import java.util.List;
 public class PlaceDTO {
     private String name;
     private String address;
-    private Double rate;
-    private Double latitude;
-    private Double longitude;
-//    private List<Review> reviews;
+    private float rate;
+    private String imageURL;
 }
