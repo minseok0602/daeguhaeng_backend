@@ -12,11 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController
+@RestController("/api/schedule")
 @RequiredArgsConstructor
 public class ScheduleController {
+
     private final ScheduleService scheduleService;
-    @PostMapping("/api/recomands/{userId}/{planId}")
+
+    @PostMapping("/{userid}/create/{planId}")
     public ResponseEntity<?> createSchedule(@RequestBody ScheduleRequestDTO scheduleRequestDto) {
         ScheduleResponseDTO scheduleResponseDTO;
         try{
@@ -26,12 +28,14 @@ public class ScheduleController {
         }
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.CREATED);
     }
-    @GetMapping("/api/recomands/{userId}/{planId}/schedules")
-    public ResponseEntity<?> getSchedule(@PathVariable long planId) {
+
+    @GetMapping("/{userId}/get/{planId}")
+    public ResponseEntity<?> getSchedule(@PathVariable Long planId) {
         List<?> schedules = scheduleService.findByPlanId(planId);
         return new ResponseEntity<>(schedules,HttpStatus.OK);
     }
-    @PutMapping("/api/recomands/{userId}/{planId}/modify/{scheduleId}")
+
+    @PutMapping("/{userId}/modify/{planId}/{scheduleId}")
     public ResponseEntity<?> modifySchedule(@PathVariable Long scheduleId, @RequestBody ScheduleRequestDTO scheduleRequestDTO) {
         ScheduleResponseDTO scheduleResponseDTO;
         try {
@@ -42,7 +46,7 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/recomands/{userId}/{planId}/delete/{scheduleId}")
+    @DeleteMapping("/{userId}/delete/{planId}/{scheduleId}")
     public ResponseEntity<?> deleteSchedule(@PathVariable Long scheduleId) {
         try{
             scheduleService.deleteSchedule(scheduleId);

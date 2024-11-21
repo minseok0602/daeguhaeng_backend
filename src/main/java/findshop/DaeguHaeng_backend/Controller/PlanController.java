@@ -14,28 +14,28 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController("/api/plan")
 @RequiredArgsConstructor
 public class PlanController {
     private final PlanService planService;
 
-    @PostMapping("/api/recomands/{id}/new")
-    public ResponseEntity<?> createPlan(@PathVariable Long id, @RequestBody PlanRequestDTO planRequestDTO) {
+    @PostMapping("/{userId}/new")
+    public ResponseEntity<?> createPlan(@PathVariable Long userId, @RequestBody PlanRequestDTO planRequestDTO) {
         PlanResponseDTO planResponseDTO;
         try {
-            planResponseDTO = planService.initPlan(id, planRequestDTO);
+            planResponseDTO = planService.initPlan(userId, planRequestDTO);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(planResponseDTO, HttpStatus.CREATED);
     }
-    @GetMapping("/api/{userId}/plans")
+    @GetMapping("/{userId}/get")
     public ResponseEntity<?> getAllPlans(@PathVariable Long userId) {
         List<PlanResponseDTO> plans = planService.findPlans(userId);
         return new ResponseEntity<>(plans,HttpStatus.OK);
     }
 
-    @PutMapping("/api/{userId}/plans/update/{planId}")
+    @PutMapping("/{userId}/update/{planId}")
     public ResponseEntity<?> updatePlan(@PathVariable Long planId, @RequestBody PlanRequestDTO planRequestDTO) {
         try{ planService.updatePlan(planId,planRequestDTO);
         }catch(Exception e) {
@@ -44,7 +44,7 @@ public class PlanController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/{userId}/plans/delete/{planId}")
+    @DeleteMapping("/{userId}/delete/{planId}")
     public ResponseEntity<?> deletePlan(@PathVariable Long planId) {
         try{
             planService.deletePlan(planId);
