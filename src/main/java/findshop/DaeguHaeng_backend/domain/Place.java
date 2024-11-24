@@ -17,9 +17,8 @@ import java.util.List;
 public abstract class Place {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "place_id")
-    private Long Id;
+    private Long id;
     @NotNull
     private String name;
     @NotNull
@@ -28,12 +27,5 @@ public abstract class Place {
     private float rate;
     @NotNull
     private String imageURL;
-    public Place(String name, String address, float rate, String imageURL) {
-        this.name = name;
-        this.address = address;
-        this.rate = rate;
-        this.imageURL = imageURL;
-
-    }
 
 }
