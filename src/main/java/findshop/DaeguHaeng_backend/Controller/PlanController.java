@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController("/api/plan")
+// class level url
 @RequiredArgsConstructor
 public class PlanController {
     private final PlanService planService;
 
-    @PostMapping("/{userId}/new")
+    @PostMapping("/{userId}/new") // localhost:8080/api/plan/userid/new
     public ResponseEntity<?> createPlan(@PathVariable Long userId, @RequestBody PlanRequestDTO planRequestDTO) {
         PlanResponseDTO planResponseDTO;
         try {
