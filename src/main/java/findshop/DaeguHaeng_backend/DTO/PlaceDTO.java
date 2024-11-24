@@ -10,6 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter@Setter
 public class PlaceDTO {
+    private long placeId;
+    private String type;
     private String name;
     private String address;
     private float rate;
