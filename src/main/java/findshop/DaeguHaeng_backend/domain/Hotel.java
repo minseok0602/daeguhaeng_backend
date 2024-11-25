@@ -10,12 +10,9 @@ import lombok.Setter;
 @DiscriminatorValue("H")
 @Getter @Setter
 public class Hotel extends Place {
+    private PlaceDTO placeDTO;
     public Hotel(PlaceDTO placeDTO) {
-        this.setId(placeDTO.getPlaceId());
-        this.setName(placeDTO.getName());
-        this.setAddress(placeDTO.getAddress());
-        this.setRate(placeDTO.getRate());
-        this.setImageURL(placeDTO.getImageURL());
+        this.placeDTO = placeDTO;
     }
 
     public Hotel() {
