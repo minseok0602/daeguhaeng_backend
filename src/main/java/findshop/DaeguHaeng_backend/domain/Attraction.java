@@ -11,12 +11,9 @@ import lombok.Setter;
 @Getter @Setter
 @DiscriminatorValue("A")
 public class Attraction extends Place {
+    private PlaceDTO placeDTO;
     public Attraction(PlaceDTO placeDTO) {
-        this.setId(placeDTO.getPlaceId());
-        this.setName(placeDTO.getName());
-        this.setAddress(placeDTO.getAddress());
-        this.setRate(placeDTO.getRate());
-        this.setImageURL(placeDTO.getImageURL());
+        this.placeDTO = placeDTO;
     }
 
     public Attraction() {

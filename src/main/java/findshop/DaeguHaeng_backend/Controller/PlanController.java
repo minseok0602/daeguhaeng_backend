@@ -38,11 +38,13 @@ public class PlanController {
 
     @PutMapping("/{userId}/update/{planId}")
     public ResponseEntity<?> updatePlan(@PathVariable Long planId, @RequestBody PlanRequestDTO planRequestDTO) {
-        try{ planService.updatePlan(planId,planRequestDTO);
+        PlanResponseDTO planResponseDTO;
+        try{
+            planResponseDTO = planService.updatePlan(planId,planRequestDTO);
         }catch(Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(planResponseDTO,HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}/delete/{planId}")
