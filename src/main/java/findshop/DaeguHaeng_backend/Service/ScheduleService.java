@@ -45,20 +45,21 @@ public class ScheduleService {
         Place requestPlace = placeRepository.findById(dto.getPlaceId());
         schedule.setPlace(requestPlace);
 
+        scheduleRepository.save(schedule);
+
         return schedule.scheduleResponseDTO();
     }
 
-    public ScheduleResponseDTO createSchedule(String jsonScheduleRequestDTO) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonParser parser = objectMapper.createParser(jsonScheduleRequestDTO);
-        JsonNode node = objectMapper.readTree(parser);
-        Plan requestPlan = planRepository.findById(node.get("planId").asLong());
+    public ScheduleResponseDTO createSchedule(ScheduleRequestDTO dto){ // Plan에 Schedule 추가하는 로직도 함께
+        Plan requestPlan = planRepository.findById(dto.getPlanId());
         if(requestPlan == null) throw new IllegalStateException("존재하지 않는 Plan");
 
-        placeService.findPlace(jsonScheduleRequestDTO, node.get("placeId").asLong());
-        Schedule schedule = objectMapper.treeToValue(node, Schedule.class);
+        Place requestPlace = placeRepository.findById(dto.getPlaceId());
 
-        // 여기서 scheduleRepo.save 해줘야함!
+        Schedule schedule = Schedule.createSchedule(requestPlace, dto.getScheduleText());
+        schedule.setPlan(requestPlan);
+        schedule.setStartTime(dto.getStartTime());
+        schedule.setEndTime(dto.getEndTime());
 
         return schedule.scheduleResponseDTO();
     }
@@ -81,6 +82,7 @@ public class ScheduleService {
 
         return responseDTOs;
     }
+
 
 
 
