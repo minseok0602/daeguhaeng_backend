@@ -17,28 +17,15 @@ import java.util.List;
 public abstract class Place {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "place_id")
-    private Long Id;
+    private Long id;
     @NotNull
     private String name;
     @NotNull
     private String address;
     @NotNull
-    private Double rate;
+    private float rate;
     @NotNull
-    private Double latitude;
-    @NotNull
-    private Double longitude;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="place_iamge_id")
-    private PlaceImage placeImageId;
-
-    @OneToMany(mappedBy = "place")
-    private List<Review> reviews = new ArrayList<Review>();
-
-    public PlaceDTO placeDTO(){
-        return new PlaceDTO(name, address, rate, latitude, longitude);
-    }
+    private String imageURL;
 
 }

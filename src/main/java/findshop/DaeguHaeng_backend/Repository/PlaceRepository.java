@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 public class PlaceRepository {
 
     private final EntityManager em;
-
+    public void save(Place place){
+        em.persist(place);
+    }
     public Place findById(Long id){
         return em.find(Place.class, id);
     }

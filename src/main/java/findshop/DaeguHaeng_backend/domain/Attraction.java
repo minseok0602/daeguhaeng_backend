@@ -1,6 +1,7 @@
 package findshop.DaeguHaeng_backend.domain;
 
 
+import findshop.DaeguHaeng_backend.DTO.PlaceDTO;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -10,12 +11,15 @@ import lombok.Setter;
 @Getter @Setter
 @DiscriminatorValue("A")
 public class Attraction extends Place {
-    public Attraction createAttraction(String address, Double rate, Double latitude, Double longitude) {
-        Attraction place = new Attraction();
-        place.setAddress(address);
-        place.setLatitude(latitude);
-        place.setLongitude(longitude);
-        place.setRate(rate);
-        return place;
+    public Attraction(PlaceDTO placeDTO) {
+        this.setId(placeDTO.getPlaceId());
+        this.setName(placeDTO.getName());
+        this.setAddress(placeDTO.getAddress());
+        this.setRate(placeDTO.getRate());
+        this.setImageURL(placeDTO.getImageURL());
+    }
+
+    public Attraction() {
+
     }
 }

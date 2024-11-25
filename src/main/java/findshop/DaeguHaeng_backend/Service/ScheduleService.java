@@ -1,5 +1,8 @@
 package findshop.DaeguHaeng_backend.Service;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import findshop.DaeguHaeng_backend.DTO.ScheduleRequestDTO;
 import findshop.DaeguHaeng_backend.DTO.ScheduleResponseDTO;
 import findshop.DaeguHaeng_backend.Repository.PlaceRepository;
@@ -13,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +30,8 @@ public class ScheduleService {
     private final PlanRepository planRepository;
     @Autowired
     private final PlaceRepository placeRepository;
+    @Autowired
+    private PlaceService placeService;
 
     @Transactional
     public ScheduleResponseDTO modifySchedule(Long scheduleId, ScheduleRequestDTO dto){
@@ -44,16 +50,15 @@ public class ScheduleService {
         return schedule.scheduleResponseDTO();
     }
 
-    public ScheduleResponseDTO createSchedule(ScheduleRequestDTO dto){ // Plan에 Schedule 추가하는 로직도 함께
-        Plan requestPlan = planRepository.findById(dto.getPlanId());
+    public ScheduleResponseDTO createSchedule(String jsonScheduleRequestDTO) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonParser parser = objectMapper.createParser(jsonScheduleRequestDTO);
+        JsonNode node = objectMapper.readTree(parser);
+        Plan requestPlan = planRepository.findById(node.get("planId").asLong());
         if(requestPlan == null) throw new IllegalStateException("존재하지 않는 Plan");
 
-        Place requestPlace = placeRepository.findById(dto.getPlaceId());
-
-        Schedule schedule = Schedule.createSchedule(requestPlace, dto.getScheduleText());
-        schedule.setPlan(requestPlan);
-        schedule.setStartTime(dto.getStartTime());
-        schedule.setEndTime(dto.getEndTime());
+        placeService.findPlace(jsonScheduleRequestDTO, node.get("placeId").asLong());
+        Schedule schedule = objectMapper.treeToValue(node, Schedule.class);
 
         return schedule.scheduleResponseDTO();
     }

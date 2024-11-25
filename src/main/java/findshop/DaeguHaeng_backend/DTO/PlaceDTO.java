@@ -10,10 +10,10 @@ import java.util.List;
 @AllArgsConstructor
 @Getter@Setter
 public class PlaceDTO {
+    private long placeId;
+    private String type;
     private String name;
     private String address;
-    private Double rate;
-    private Double latitude;
-    private Double longitude;
-//    private List<Review> reviews;
+    private float rate;
+    private String imageURL;
 }
