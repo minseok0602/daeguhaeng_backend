@@ -41,14 +41,12 @@ public class UserService {
         return newUser.loginResponseDTO();
     }
 
-
     private void validateDuplicateUser(String userLoginId){
         User user = userRepository.findByLoginId(userLoginId);
         if(user != null){
             throw new IllegalStateException("이미 존재하는 LoginID");
         }
     }
-
 
     public UserDTO findOne(Long userId){
         User user = userRepository.findById(userId);
@@ -57,15 +55,16 @@ public class UserService {
 
         return user.userDTO();
     }
+
     @Transactional
     public UserDTO modifyUserName(Long userId, String newUserName){
+
         User user = userRepository.findById(userId);
 
         if(user == null)
             throw new IllegalStateException("존재하지 않는 user");
 
         user.setUserName(newUserName);
-        userRepository.save(user);
 
         return user.userDTO();
     }
@@ -83,7 +82,6 @@ public class UserService {
             throw new IllegalStateException("올바르지 않은 비밀번호");
         }
         user.setUserPw(dto.getNewPassword());
-        userRepository.save(user);
 
         return user.userDTO();
     }

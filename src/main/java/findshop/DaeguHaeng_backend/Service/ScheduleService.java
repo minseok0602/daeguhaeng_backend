@@ -45,8 +45,6 @@ public class ScheduleService {
         Place requestPlace = placeRepository.findById(dto.getPlaceId());
         schedule.setPlace(requestPlace);
 
-        scheduleRepository.save(schedule);
-
         return schedule.scheduleResponseDTO();
     }
 
@@ -59,6 +57,8 @@ public class ScheduleService {
 
         placeService.findPlace(jsonScheduleRequestDTO, node.get("placeId").asLong());
         Schedule schedule = objectMapper.treeToValue(node, Schedule.class);
+
+        // 여기서 scheduleRepo.save 해줘야함!
 
         return schedule.scheduleResponseDTO();
     }
