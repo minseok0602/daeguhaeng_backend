@@ -3,6 +3,7 @@ package findshop.DaeguHaeng_backend.Service;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import findshop.DaeguHaeng_backend.DTO.ScheduleCreateDTO;
 import findshop.DaeguHaeng_backend.DTO.ScheduleRequestDTO;
 import findshop.DaeguHaeng_backend.DTO.ScheduleResponseDTO;
 import findshop.DaeguHaeng_backend.Repository.PlaceRepository;
@@ -50,17 +51,19 @@ public class ScheduleService {
         return schedule.scheduleResponseDTO();
     }
 
-    public ScheduleResponseDTO createSchedule(ScheduleRequestDTO dto){ // Plan에 Schedule 추가하는 로직도 함께
-        Plan requestPlan = planRepository.findById(dto.getPlanId());
+    public ScheduleResponseDTO createSchedule(ScheduleCreateDTO scheduleCreateDTO){ // Plan에 Schedule 추가하는 로직도 함께
+        Plan requestPlan = planRepository.findById(scheduleCreateDTO.getPlanId());
         if(requestPlan == null) throw new IllegalStateException("존재하지 않는 Plan");
 
-        Place requestPlace = placeRepository.findById(dto.getPlaceId());
+        Place requestPlace = placeService.findPlace(scheduleCreateDTO);
 
-        Schedule schedule = Schedule.createSchedule(requestPlace, dto.getScheduleText());
+        Schedule schedule = Schedule.createSchedule(requestPlace, scheduleCreateDTO.getScheduleText());
         schedule.setPlan(requestPlan);
-        schedule.setStartTime(dto.getStartTime());
-        schedule.setEndTime(dto.getEndTime());
-
+        schedule.setStartTime(scheduleCreateDTO.getStartTime());
+        schedule.setEndTime(scheduleCreateDTO.getEndTime());
+        schedule.setScheduleText(scheduleCreateDTO.getScheduleText());
+        schedule.setPlace(requestPlace);
+        scheduleRepository.save(schedule);
         return schedule.scheduleResponseDTO();
     }
 
