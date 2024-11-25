@@ -1,8 +1,6 @@
 package findshop.DaeguHaeng_backend.Controller;
 
-import findshop.DaeguHaeng_backend.DTO.PlanRequestDTO;
-import findshop.DaeguHaeng_backend.DTO.ScheduleRequestDTO;
-import findshop.DaeguHaeng_backend.DTO.ScheduleResponseDTO;
+import findshop.DaeguHaeng_backend.DTO.*;
 import findshop.DaeguHaeng_backend.Service.ScheduleService;
 import findshop.DaeguHaeng_backend.domain.Plan;
 import findshop.DaeguHaeng_backend.domain.Schedule;
@@ -19,10 +17,10 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping("/{userid}/create/{planId}")
-    public ResponseEntity<?> createSchedule(@RequestBody ScheduleRequestDTO scheduleRequestDto) {
+    public ResponseEntity<?> createSchedule(@RequestBody ScheduleCreateDTO scheduleCreateDTO) {
         ScheduleResponseDTO scheduleResponseDTO;
         try{
-            scheduleResponseDTO = scheduleService.createSchedule(scheduleRequestDto);
+            scheduleResponseDTO = scheduleService.createSchedule(scheduleCreateDTO);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
