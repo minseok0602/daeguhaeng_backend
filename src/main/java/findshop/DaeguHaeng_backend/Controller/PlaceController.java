@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PlaceController {
     final PlaceService placeService;
-    @GetMapping("/{placeId}")
+    /*@GetMapping("/{placeId}")
     public ResponseEntity<?> getPlaceDetails(@PathVariable Long placeId) {
         PlaceDetailDTO placeDetailDTO;
-    }
+    }*/
 }
