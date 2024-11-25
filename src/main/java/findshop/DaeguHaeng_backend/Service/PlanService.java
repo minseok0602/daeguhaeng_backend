@@ -58,8 +58,6 @@ public class PlanService {
         plan.setAge(request.getAge());
         plan.setBudget(request.getBudget());
 
-        planRepository.save(plan);
-
         return plan.planResponseDTO();
     }
 
