@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/api/plan")
+@RestController
+@RequestMapping("/api/plan")
 // class level url
 @RequiredArgsConstructor
 public class PlanController {
