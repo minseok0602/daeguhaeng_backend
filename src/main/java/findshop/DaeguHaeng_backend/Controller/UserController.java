@@ -25,7 +25,7 @@ public class UserController {
             loginResponseDTO = userService.register(registerRequestDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("User registration failed!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(loginResponseDTO, HttpStatus.CREATED);
     }
@@ -37,7 +37,7 @@ public class UserController {
         }catch (Exception e) {
 
             e.printStackTrace();
-            return new ResponseEntity<>("User login failed!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(loginResponseDTO, HttpStatus.OK);
     }
