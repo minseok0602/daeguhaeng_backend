@@ -14,12 +14,6 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
-  web:
-    cors:
-      allowed-origins: "http://localhost:3000" # 허용할 Origin
-      allowed-methods: "*"                    # 모든 HTTP 메서드 허용
-      allowed-headers: "*"                    # 모든 헤더 허용
-      allow-credentials: true
 
 logging.level:
   org.hibernate.SQL: debug

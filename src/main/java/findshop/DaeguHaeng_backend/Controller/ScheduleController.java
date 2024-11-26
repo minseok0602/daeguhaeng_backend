@@ -22,6 +22,7 @@ public class ScheduleController {
         try{
             scheduleResponseDTO = scheduleService.createSchedule(scheduleCreateDTO);
         }catch (Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.CREATED);
@@ -39,6 +40,7 @@ public class ScheduleController {
         try {
             scheduleResponseDTO = scheduleService.modifySchedule(scheduleId, scheduleRequestDTO);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.OK);
@@ -49,6 +51,7 @@ public class ScheduleController {
         try{
             scheduleService.deleteSchedule(scheduleId);
         }catch(Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.OK);
