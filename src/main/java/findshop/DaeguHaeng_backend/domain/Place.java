@@ -5,6 +5,7 @@ import findshop.DaeguHaeng_backend.DTO.PlaceDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "place_type") // 상속을 구분해줄 칼럼명
 @Getter @Setter
+@RequiredArgsConstructor
 public abstract class Place {
 
     @Id
@@ -27,6 +29,13 @@ public abstract class Place {
     private float rate;
     @NotNull
     private String imageURL;
-    public Place();
+
+    public Place(PlaceDTO placeDTO){
+        this.setId(placeDTO.getPlaceId());
+        this.setAddress(placeDTO.getAddress());
+        this.setRate(placeDTO.getRate());
+        this.setName(placeDTO.getName());
+        this.setImageURL(placeDTO.getImageURL());
+    }
 
 }
