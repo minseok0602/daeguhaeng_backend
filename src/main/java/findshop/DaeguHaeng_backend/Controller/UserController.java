@@ -11,15 +11,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
+@CrossOrigin("http://localhost:5173")
 public class UserController {
 
+    @Autowired
     private final UserService userService;
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
         LoginResponseDTO loginResponseDTO;
         try {
+            System.out.println(registerRequestDTO.getUsername());
+            System.out.println(registerRequestDTO.getUserLoginId());
             loginResponseDTO = userService.register(registerRequestDTO);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>("User registration failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(loginResponseDTO, HttpStatus.CREATED);
@@ -30,6 +35,8 @@ public class UserController {
         try{
             loginResponseDTO =  userService.logIn(loginRequestDTO);
         }catch (Exception e) {
+
+            e.printStackTrace();
             return new ResponseEntity<>("User login failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(loginResponseDTO, HttpStatus.OK);
@@ -42,6 +49,7 @@ public class UserController {
         try{
             userDTO = userService.modifyUserName(id,newName);
         }catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>("User update failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
@@ -53,6 +61,7 @@ public class UserController {
         try{
             userDTO =  userService.modifyPassword(userId, updatePasswordDTO);
         }catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>("User update failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(userDTO, HttpStatus.OK);

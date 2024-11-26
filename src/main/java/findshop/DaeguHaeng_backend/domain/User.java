@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-
+@Table(name = "users")
 public class User {
 
     @Id
@@ -25,7 +25,7 @@ public class User {
     private String userName;
     @Column(unique = true, name = "user_login_id")
     @NotNull
-    private String userLoginID;
+    private String loginId;
     @NotNull
     private String userPw;
 
@@ -36,26 +36,26 @@ public class User {
 
     static public User createUser(String userName, String userLoginID, String userPw) {
         User user = new User();
-        user.setUserLoginID(userLoginID);
+        user.setLoginId(userLoginID);
         user.setUserName(userName);
         user.setUserPw(userPw);
         return user;
     }
 
     public UserDTO userDTO() {
-        return new UserDTO(userName, Id, userLoginID);
+        return new UserDTO(userName, Id, loginId);
     }
 
     public LoginRequestDTO loginRequestDTO(){
-        return new LoginRequestDTO(userLoginID, userPw);
+        return new LoginRequestDTO(loginId, userPw);
     }
 
     public LoginResponseDTO loginResponseDTO(){
-        return new LoginResponseDTO(userLoginID, Id);
+        return new LoginResponseDTO(loginId, Id);
     }
 
     public RegisterRequestDTO registerRequestDTO(){
-        return new RegisterRequestDTO(userName, userLoginID, userPw);
+        return new RegisterRequestDTO(userName, loginId, userPw);
     }
 
 
