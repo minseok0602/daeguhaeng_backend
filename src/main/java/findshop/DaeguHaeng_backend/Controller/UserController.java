@@ -1,9 +1,6 @@
 package findshop.DaeguHaeng_backend.Controller;
 
-import findshop.DaeguHaeng_backend.DTO.LoginRequestDTO;
-import findshop.DaeguHaeng_backend.DTO.RegisterRequestDTO;
-import findshop.DaeguHaeng_backend.DTO.UpdatePasswordDTO;
-import findshop.DaeguHaeng_backend.DTO.UserDTO;
+import findshop.DaeguHaeng_backend.DTO.*;
 import findshop.DaeguHaeng_backend.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,45 +15,47 @@ public class UserController {
 
     private final UserService userService;
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
+        LoginResponseDTO loginResponseDTO;
         try {
-            userService.register(registerRequestDTO);
-            return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
+            loginResponseDTO = userService.register(registerRequestDTO);
         } catch (Exception e) {
             return new ResponseEntity<>("User registration failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return new ResponseEntity<>(loginResponseDTO, HttpStatus.CREATED);
     }
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        if(loginRequestDTO.getLoginId().equals("test@example.com"))
-         return new ResponseEntity<>("User logged in successfully!", HttpStatus.OK);
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+        LoginResponseDTO loginResponseDTO;
         try{
-
-            userService.logIn(loginRequestDTO);
-            return new ResponseEntity<>("User logged in successfully!", HttpStatus.OK);
+            loginResponseDTO =  userService.logIn(loginRequestDTO);
         }catch (Exception e) {
             return new ResponseEntity<>("User login failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return new ResponseEntity<>(loginResponseDTO, HttpStatus.OK);
     }
 
 
     @PutMapping("/{id}/updateName")
-    public ResponseEntity<String> updateUserName(@PathVariable Long id, @RequestBody String newName) {
+    public ResponseEntity<?> updateUserName(@PathVariable Long id, @RequestBody String newName) {
+        UserDTO userDTO;
         try{
-            userService.modifyUserName(id,newName);
+            userDTO = userService.modifyUserName(id,newName);
         }catch (Exception e) {
             return new ResponseEntity<>("User update failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>("User name updated successfully!", HttpStatus.OK);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @PutMapping("/{userId}/settings")
-    public ResponseEntity<String> updatePassword(@PathVariable Long userId, @RequestBody UpdatePasswordDTO updatePasswordDTO) {
+    public ResponseEntity<?> updatePassword(@PathVariable Long userId, @RequestBody UpdatePasswordDTO updatePasswordDTO) {
+        UserDTO userDTO;
         try{
-            userService.modifyPassword(userId, updatePasswordDTO);
+            userDTO =  userService.modifyPassword(userId, updatePasswordDTO);
         }catch (Exception e) {
             return new ResponseEntity<>("User update failed!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>("User password updated successfully!", HttpStatus.OK);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
+
 }

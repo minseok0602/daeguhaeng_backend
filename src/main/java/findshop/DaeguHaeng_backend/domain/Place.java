@@ -27,5 +27,6 @@ public abstract class Place {
     private float rate;
     @NotNull
     private String imageURL;
+    public Place();
 
 }
