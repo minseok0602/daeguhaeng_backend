@@ -37,6 +37,8 @@ public class Plan {
     private LocalDate startDate;
     @NotNull
     private LocalDate endDate;
+    @NotNull
+    private String title;
     public void setUser(User user) {
         this.user = user;
         user.getPlans().add(this);
@@ -58,11 +60,11 @@ public class Plan {
     }
 
     public PlanResponseDTO planResponseDTO(){
-        return new PlanResponseDTO(Id, sex, age, startDate, endDate, budget);
+        return new PlanResponseDTO(Id, sex, age, startDate, endDate, budget,title);
     }
 
     public PlanRequestDTO planRequestDTO(){
-        return new PlanRequestDTO(user.getId(), startDate, endDate, sex, age, budget);
+        return new PlanRequestDTO(user.getId(), startDate, endDate, sex, age, budget,title);
     }
 
 

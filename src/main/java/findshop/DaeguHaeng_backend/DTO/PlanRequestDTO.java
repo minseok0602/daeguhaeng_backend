@@ -15,4 +15,5 @@ public class PlanRequestDTO {
     private Sex sex;
     private Integer age;
     private Integer budget;
+    private String title;
 }

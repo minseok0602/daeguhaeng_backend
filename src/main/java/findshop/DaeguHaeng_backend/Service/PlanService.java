@@ -31,6 +31,7 @@ public class PlanService {
 
         Plan newPlan = Plan.createPlan(user);
         newPlan.setDetail(request.getBudget(), request.getSex(), request.getAge(), request.getStartDate(), request.getEndDate());
+        newPlan.setTitle(request.getTitle());
         planRepository.save(newPlan);
 
         return newPlan.planResponseDTO();
