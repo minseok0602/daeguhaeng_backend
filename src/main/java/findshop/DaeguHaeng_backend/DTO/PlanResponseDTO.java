@@ -16,4 +16,5 @@ public class PlanResponseDTO {
     private LocalDate startDate;
     private LocalDate endDate;
     private Integer budget;
+    private String title;
 }

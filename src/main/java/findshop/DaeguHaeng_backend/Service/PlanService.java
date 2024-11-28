@@ -30,7 +30,10 @@ public class PlanService {
         if(user == null) throw new IllegalStateException("존재하지 않는 User");
 
         Plan newPlan = Plan.createPlan(user);
-        newPlan.setDetail(request.getPlanName(), request.getBudget(), request.getSex(), request.getAge(), request.getStartDate(), request.getEndDate());
+
+
+        newPlan.setDetail(request.getBudget(), request.getSex(), request.getAge(), request.getStartDate(), request.getEndDate(), request.getTitle());
+
         planRepository.save(newPlan);
 
         return newPlan.planResponseDTO();

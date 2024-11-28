@@ -40,6 +40,8 @@ public class Plan {
     private LocalDate startDate;
     @NotNull
     private LocalDate endDate;
+    @NotNull
+    private String title;
     public void setUser(User user) {
         this.user = user;
         user.getPlans().add(this);
@@ -52,19 +54,23 @@ public class Plan {
     public void addSchedule(Schedule schedule) {
         schedules.add(schedule);
     }
-    public void setDetail(String planName, int budget, Sex sex, int age, LocalDate startDate, LocalDate endDate) {
-        this.planName = planName;
+    public void setDetail( int budget, Sex sex, int age, LocalDate startDate, LocalDate endDate, String title) {
+
         this.budget = budget;
         this.sex = sex;
         this.age = age;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.title = title;
     }
 
     public PlanResponseDTO planResponseDTO(){
-        return new PlanResponseDTO(Id, planName, sex, age, startDate, endDate, budget);
+        return new PlanResponseDTO(Id, sex, age, startDate, endDate, budget,title);
     }
 
+    public PlanRequestDTO planRequestDTO(){
+        return new PlanRequestDTO(user.getId(), startDate, endDate, sex, age, budget,title);
+    }
 
 
 
