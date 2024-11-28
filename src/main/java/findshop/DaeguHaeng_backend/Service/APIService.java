@@ -6,7 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class APIService {
-    private final String FLASK_API_URL = "http://127.0.0.1:5000/recommend";
+    private final String FLASK_API_URL = "http://127.0.0.1:5000/api/recommend";
 
     public Object callFlaskAPI(ClientDTO clientInfo) {
         RestTemplate restTemplate = new RestTemplate();
