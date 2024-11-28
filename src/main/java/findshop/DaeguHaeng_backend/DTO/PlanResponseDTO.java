@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Getter @Setter
 public class PlanResponseDTO {
     private Long planId;
+    private String planName;
     private Sex sex;
     private Integer age;
     private LocalDate startDate;

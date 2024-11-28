@@ -23,6 +23,7 @@ public class User {
     private Long Id;
     @NotNull
     private String userName;
+
     @Column(unique = true, name = "user_login_id")
     @NotNull
     private String loginId;
