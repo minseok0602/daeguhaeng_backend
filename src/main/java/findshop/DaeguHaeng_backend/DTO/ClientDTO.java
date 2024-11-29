@@ -11,7 +11,7 @@ public class ClientDTO {
     private int cluster;
     private int age;
     private String gender;
-
+    private int spending;
 
 
 

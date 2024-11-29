@@ -10,11 +10,10 @@ import java.time.LocalDate;
 @Getter @Setter
 public class PlanRequestDTO {
     private Long userId;
-    private String planName;
+    private String title;
     private LocalDate startDate;
     private LocalDate endDate;
     private Sex sex;
     private Integer age;
     private Integer budget;
-    private String title;
 }
