@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api/plan")
 // class level url
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173/") // 클라이언트 Origin 허용
 public class PlanController {
     private final PlanService planService;
 

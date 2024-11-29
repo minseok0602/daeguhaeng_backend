@@ -7,13 +7,11 @@ import findshop.DaeguHaeng_backend.Service.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("/api/place")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173/") // 클라이언트 Origin 허용
 public class PlaceController {
     final PlaceService placeService;
     /*@GetMapping("/{placeId}")
