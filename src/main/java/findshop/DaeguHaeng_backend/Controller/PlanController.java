@@ -33,6 +33,8 @@ public class PlanController {
         }
         return new ResponseEntity<>(planResponseDTO, HttpStatus.CREATED);
     }
+
+
     @GetMapping("/{userId}/get")
     public ResponseEntity<?> getAllPlans(@PathVariable Long userId) {
         List<PlanResponseDTO> plans = planService.findPlans(userId);
