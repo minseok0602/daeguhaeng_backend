@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("/api/recommend")
+@RequestMapping("/api/recommendation")
 @CrossOrigin(origins = "http://localhost:5173/") // 클라이언트 Origin 허용
 public class APIController {
 

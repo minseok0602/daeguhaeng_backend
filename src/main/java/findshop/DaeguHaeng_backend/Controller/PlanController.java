@@ -29,7 +29,7 @@ public class PlanController {
             planResponseDTO = planService.initPlan(userId, planRequestDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(planResponseDTO, HttpStatus.CREATED);
     }
@@ -48,7 +48,7 @@ public class PlanController {
             planResponseDTO = planService.updatePlan(planId,planRequestDTO);
         }catch(Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(planResponseDTO,HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class PlanController {
             planService.deletePlan(planId);
         }catch(Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
