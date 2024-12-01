@@ -27,6 +27,9 @@ public class Plan {
 
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     private List<Schedule> schedules = new ArrayList<Schedule>();
+
+    private String planName;
+
     @NotNull
     private int budget;
     @NotNull
@@ -51,12 +54,14 @@ public class Plan {
     public void addSchedule(Schedule schedule) {
         schedules.add(schedule);
     }
-    public void setDetail(int budget, Sex sex, int age, LocalDate startDate, LocalDate endDate) {
+    public void setDetail( int budget, Sex sex, int age, LocalDate startDate, LocalDate endDate, String title) {
+
         this.budget = budget;
         this.sex = sex;
         this.age = age;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.title = title;
     }
 
     public PlanResponseDTO planResponseDTO(){
@@ -66,6 +71,7 @@ public class Plan {
     public PlanRequestDTO planRequestDTO(){
         return new PlanRequestDTO(user.getId(), startDate, endDate, sex, age, budget,title);
     }
+
 
 
 }
