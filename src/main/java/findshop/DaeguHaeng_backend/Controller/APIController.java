@@ -19,14 +19,17 @@ public class APIController {
     @PostMapping
     public ResponseEntity<?> getRecommendation(@RequestBody ClientDTO clientDTO) {
         RestTemplate restTemplate = new RestTemplate();
-
+        System.out.println("[REQUEST RECEIVED] " + clientDTO);
         try {
             // Flask 서버로 요청 보내기
             ResponseEntity<String> flaskResponse = restTemplate.postForEntity(FLASK_API_URL, clientDTO, String.class);
 
-            // Flask 응답 반환
+//            // Flask 응답 반환
+//            System.out.println(flaskResponse.getBody());
+
             return ResponseEntity.ok(flaskResponse.getBody());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(500).body("Error communicating with Flask server: " + e.getMessage());
         }
     }

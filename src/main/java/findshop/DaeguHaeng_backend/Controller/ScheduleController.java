@@ -10,14 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController("/api/schedule")
+@RestController
+@RequestMapping("/api/schedule")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173/") // 클라이언트 Origin 허용
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    @PostMapping("/{userid}/create/{planId}")
+    @PostMapping("/{userId}/create/{planId}")
     public ResponseEntity<?> createSchedule(@RequestBody ScheduleCreateDTO scheduleCreateDTO) {
         ScheduleResponseDTO scheduleResponseDTO;
         try{
