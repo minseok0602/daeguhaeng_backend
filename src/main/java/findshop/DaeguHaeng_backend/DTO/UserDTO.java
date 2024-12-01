@@ -12,5 +12,4 @@ public class UserDTO {
     private String userName;
     private Long userId;
     private String loginId;
-
 }

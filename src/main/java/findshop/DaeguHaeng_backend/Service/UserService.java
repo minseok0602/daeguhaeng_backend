@@ -34,6 +34,7 @@ public class UserService {
 
     @Transactional
     public LoginResponseDTO register(RegisterRequestDTO dto){
+        validatePassword(dto.getPassword());
         validateDuplicateUser(dto.getUserLoginId());
         User newUser = User.createUser(dto.getUsername(), dto.getUserLoginId(), dto.getPassword());
         userRepository.save(newUser);
@@ -71,14 +72,12 @@ public class UserService {
 
     @Transactional
     public UserDTO modifyPassword(Long userId, UpdatePasswordDTO dto){
-        if(!isValidPassword(dto.getNewPassword())){
-            throw new IllegalStateException("올바르지 않은 비밀번호 형식");
-        }
+        validatePassword(dto.getNewPassword());
         User user = userRepository.findById(userId);
 
         if(user == null)
             throw new IllegalStateException("존재하지 않는 user");
-        else if(!user.getUserPw().equals(dto.getNewPassword())){
+        else if(!user.getUserPw().equals(dto.getOldPassword())){
             throw new IllegalStateException("올바르지 않은 비밀번호");
         }
         user.setUserPw(dto.getNewPassword());
@@ -86,10 +85,12 @@ public class UserService {
         return user.userDTO();
     }
 
-    private boolean isValidPassword(String password){
+    private void validatePassword(String password){
         // password 형식 : 특수문자(!,@,#,$,, 영문, 숫자 반드시 포함하는 8자리 이상
         String regex = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$]).{8,}$";
-        return password.matches(regex);
+        if(!password.matches(regex))
+            throw new IllegalStateException("비밀번호 형식은 특수문자(!,@,#,$), 영문, 숫자를 반드시 포함하는 8자리 이상");
+
     }
 
 

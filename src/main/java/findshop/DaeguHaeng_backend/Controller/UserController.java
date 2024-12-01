@@ -50,7 +50,7 @@ public class UserController {
             userDTO = userService.modifyUserName(id,newName);
         }catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("User update failed!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
@@ -62,9 +62,30 @@ public class UserController {
             userDTO =  userService.modifyPassword(userId, updatePasswordDTO);
         }catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>("User update failed!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
+
+
+
+
+    // userId 주면 getUserInfo
+
+    @GetMapping("/{userId}/getInfo")
+    public ResponseEntity<?> getUserInfo(@PathVariable Long userId) {
+
+        UserDTO userDTO;
+        try{
+            userDTO = userService.findOne(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+
 
 }

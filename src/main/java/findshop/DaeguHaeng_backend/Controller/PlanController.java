@@ -17,6 +17,7 @@ import java.util.List;
 @RestController("/api/plan")
 // class level url
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173/") // 클라이언트 Origin 허용
 public class PlanController {
     private final PlanService planService;
 
@@ -27,10 +28,12 @@ public class PlanController {
             planResponseDTO = planService.initPlan(userId, planRequestDTO);
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(planResponseDTO, HttpStatus.CREATED);
     }
+
+
     @GetMapping("/{userId}/get")
     public ResponseEntity<?> getAllPlans(@PathVariable Long userId) {
         List<PlanResponseDTO> plans = planService.findPlans(userId);
@@ -44,7 +47,7 @@ public class PlanController {
             planResponseDTO = planService.updatePlan(planId,planRequestDTO);
         }catch(Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(planResponseDTO,HttpStatus.OK);
     }
@@ -55,7 +58,7 @@ public class PlanController {
             planService.deletePlan(planId);
         }catch(Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
