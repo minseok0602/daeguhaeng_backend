@@ -10,7 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController("/api/schedule")
+@RestController()
+@RequestMapping("/api/schedule")
 @RequiredArgsConstructor
 public class ScheduleController {
 
