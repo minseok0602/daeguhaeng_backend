@@ -16,4 +16,9 @@ public class PlaceDTO {
     private String address;
     private float rate;
     private String imageURL;
+
+    @Override
+    public String toString() {
+        return "PlaceID : " + placeId + ", Type : " + type + ", name : " + name + ", address : " + address + ", rate : " + rate;
+    }
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Getter @Setter
@@ -22,14 +23,16 @@ public class Schedule {
     @JoinColumn(name = "plan_id")
     @NotNull
     private Plan plan;
-    @OneToOne
+
+    @ManyToOne
     @JoinColumn(name = "place_id")
     @NotNull
     private Place place;
+
     @NotNull
-    private LocalDateTime startTime;
+    private OffsetDateTime startTime;
     @NotNull
-    private LocalDateTime endTime;
+    private OffsetDateTime endTime;
 
     private String scheduleText;
     static public Schedule createSchedule(Place place, String scheduleText){

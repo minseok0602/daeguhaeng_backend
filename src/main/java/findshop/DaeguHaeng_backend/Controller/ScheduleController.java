@@ -23,6 +23,7 @@ public class ScheduleController {
         ScheduleResponseDTO scheduleResponseDTO;
         try{
             scheduleResponseDTO = scheduleService.createSchedule(scheduleCreateDTO);
+            System.out.println("[REQUEST RECEIVED] : " + scheduleCreateDTO);
         }catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

@@ -23,12 +23,14 @@ public abstract class Place {
     private Long id;
     @NotNull
     private String name;
-    @NotNull
+//    @NotNull
     private String address;
     @NotNull
     private float rate;
     @NotNull
     private String imageURL;
+
+
 
     public Place(PlaceDTO placeDTO){
         this.setId(placeDTO.getPlaceId());
