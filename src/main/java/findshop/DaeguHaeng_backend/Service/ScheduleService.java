@@ -91,8 +91,8 @@ public class ScheduleService {
         ScheduleResponseDTO responseDTO = new ScheduleResponseDTO();
         Place place = schedule.getPlace();
         responseDTO.setScheduleId(schedule.getId());
-        responseDTO.setStartTime(schedule.getStartTime());
-        responseDTO.setEndTime(schedule.getEndTime());
+        responseDTO.setStartTime(schedule.getStartTime().toString());
+        responseDTO.setEndTime(schedule.getEndTime().toString());
         responseDTO.setScheduleText(schedule.getScheduleText());
         if(place != null) {
             responseDTO.setName(place.getName());
