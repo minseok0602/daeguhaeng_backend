@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -14,8 +12,8 @@ import java.time.OffsetDateTime;
 @Setter
 public class ScheduleCreateDTO {
     private Long planId;
-    private OffsetDateTime startTime;
-    private OffsetDateTime endTime;
+    private String startTime;
+    private String endTime;
     private String scheduleText;
     private Long placeId;
     private String type;

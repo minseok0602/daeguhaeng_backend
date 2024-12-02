@@ -1,19 +1,14 @@
 package findshop.DaeguHaeng_backend.Service;
 
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import findshop.DaeguHaeng_backend.DTO.PlaceDTO;
 import findshop.DaeguHaeng_backend.DTO.ScheduleCreateDTO;
 import findshop.DaeguHaeng_backend.Repository.PlaceRepository;
 import findshop.DaeguHaeng_backend.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,9 +33,9 @@ public class Schedule {
     private Place place;
 
     @NotNull
-    private OffsetDateTime startTime;
+    private LocalDateTime startTime;
     @NotNull
-    private OffsetDateTime endTime;
+    private LocalDateTime endTime;
 
     private String scheduleText;
     static public Schedule createSchedule(Place place, String scheduleText){

@@ -1,8 +1,5 @@
 package findshop.DaeguHaeng_backend.Service;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import findshop.DaeguHaeng_backend.DTO.ScheduleCreateDTO;
 import findshop.DaeguHaeng_backend.DTO.ScheduleRequestDTO;
 import findshop.DaeguHaeng_backend.DTO.ScheduleResponseDTO;
@@ -17,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +36,8 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId);
         if(schedule == null) throw new IllegalStateException("존재하지 않는 schedule");
 
-        schedule.setStartTime(dto.getStartTime());
-        schedule.setEndTime(dto.getEndTime());
+        schedule.setStartTime(LocalDateTime.parse(dto.getStartTime()));
+        schedule.setEndTime(LocalDateTime.parse(dto.getEndTime()));
         schedule.setScheduleText(dto.getScheduleText());
 
         Place requestPlace = placeRepository.findById(dto.getPlaceId());
@@ -59,8 +56,8 @@ public class ScheduleService {
 
         Schedule schedule = Schedule.createSchedule(requestPlace, scheduleCreateDTO.getScheduleText());
         schedule.setPlan(requestPlan);
-        schedule.setStartTime(scheduleCreateDTO.getStartTime());
-        schedule.setEndTime(scheduleCreateDTO.getEndTime());
+        schedule.setStartTime(LocalDateTime.parse(scheduleCreateDTO.getStartTime()));
+        schedule.setEndTime(LocalDateTime.parse(scheduleCreateDTO.getEndTime()));
         schedule.setScheduleText(scheduleCreateDTO.getScheduleText());
         schedule.setPlace(requestPlace);
         scheduleRepository.save(schedule);
