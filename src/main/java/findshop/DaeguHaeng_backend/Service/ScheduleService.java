@@ -36,8 +36,8 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId);
         if(schedule == null) throw new IllegalStateException("존재하지 않는 schedule");
 
-        schedule.setStartTime(LocalDateTime.parse(dto.getStartTime()));
-        schedule.setEndTime(LocalDateTime.parse(dto.getEndTime()));
+        schedule.setStartTime(dto.getStartTime());
+        schedule.setEndTime(dto.getEndTime());
         schedule.setScheduleText(dto.getScheduleText());
 
         Place requestPlace = placeRepository.findById(dto.getPlaceId());
@@ -56,8 +56,8 @@ public class ScheduleService {
 
         Schedule schedule = Schedule.createSchedule(requestPlace, scheduleCreateDTO.getScheduleText());
         schedule.setPlan(requestPlan);
-        schedule.setStartTime(LocalDateTime.parse(scheduleCreateDTO.getStartTime()));
-        schedule.setEndTime(LocalDateTime.parse(scheduleCreateDTO.getEndTime()));
+        schedule.setStartTime(scheduleCreateDTO.getStartTime());
+        schedule.setEndTime(scheduleCreateDTO.getEndTime());
         schedule.setScheduleText(scheduleCreateDTO.getScheduleText());
         schedule.setPlace(requestPlace);
         scheduleRepository.save(schedule);
@@ -88,8 +88,8 @@ public class ScheduleService {
         ScheduleResponseDTO responseDTO = new ScheduleResponseDTO();
         Place place = schedule.getPlace();
         responseDTO.setScheduleId(schedule.getId());
-        responseDTO.setStartTime(schedule.getStartTime().toString());
-        responseDTO.setEndTime(schedule.getEndTime().toString());
+        responseDTO.setStartTime(schedule.getStartTime());
+        responseDTO.setEndTime(schedule.getEndTime());
         responseDTO.setScheduleText(schedule.getScheduleText());
         if(place != null) {
             responseDTO.setName(place.getName());

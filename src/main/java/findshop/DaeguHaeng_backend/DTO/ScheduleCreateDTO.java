@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -12,8 +14,8 @@ import lombok.Setter;
 @Setter
 public class ScheduleCreateDTO {
     private Long planId;
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String scheduleText;
     private Long placeId;
     private String type;

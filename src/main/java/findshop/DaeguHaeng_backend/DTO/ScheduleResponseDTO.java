@@ -11,8 +11,8 @@ import java.time.OffsetDateTime;
 @Getter @Setter
 public class ScheduleResponseDTO {
     private Long scheduleId;
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String scheduleText;
 //    private Long placeId;
     private String name;

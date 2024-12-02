@@ -55,7 +55,7 @@ public class Schedule {
     }
 
     public ScheduleRequestDTO scheduleRequestDTO(){
-        return new ScheduleRequestDTO(plan.getId(), startTime.toString(), endTime.toString(), scheduleText, place.getId());
+        return new ScheduleRequestDTO(plan.getId(), startTime, endTime, scheduleText, place.getId());
     }
 
 
