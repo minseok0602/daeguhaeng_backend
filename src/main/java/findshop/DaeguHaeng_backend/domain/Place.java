@@ -28,6 +28,7 @@ public abstract class Place {
     @NotNull
     private float rate;
     @NotNull
+    @Column(length = 512)
     private String imageURL;
 
 

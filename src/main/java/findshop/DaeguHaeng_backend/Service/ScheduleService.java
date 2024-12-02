@@ -90,7 +90,7 @@ public class ScheduleService {
     private static ScheduleResponseDTO getScheduleResponseDTO(Schedule schedule) {
         ScheduleResponseDTO responseDTO = new ScheduleResponseDTO();
         Place place = schedule.getPlace();
-
+        responseDTO.setScheduleId(schedule.getId());
         responseDTO.setStartTime(schedule.getStartTime());
         responseDTO.setEndTime(schedule.getEndTime());
         responseDTO.setScheduleText(schedule.getScheduleText());
