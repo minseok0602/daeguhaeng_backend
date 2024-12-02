@@ -48,7 +48,7 @@ public class ScheduleService {
 
         scheduleRepository.save(schedule);
 
-        return schedule.scheduleResponseDTO();
+        return getScheduleResponseDTO(schedule);
     }
 
     public ScheduleResponseDTO createSchedule(ScheduleCreateDTO scheduleCreateDTO){ // Plan에 Schedule 추가하는 로직도 함께
@@ -64,7 +64,7 @@ public class ScheduleService {
         schedule.setScheduleText(scheduleCreateDTO.getScheduleText());
         schedule.setPlace(requestPlace);
         scheduleRepository.save(schedule);
-        return schedule.scheduleResponseDTO();
+        return getScheduleResponseDTO(schedule);
     }
 
     @Transactional
@@ -74,19 +74,35 @@ public class ScheduleService {
             scheduleRepository.delete(schedule);
     }
 
-    public List<ScheduleResponseDTO> findByPlanId(Long planId){
+    public List<ScheduleResponseDTO> findByPlanId(Long planId){ // plan 안의 schedule들 반환, 이 때 placeId는 place세부 정보로 변환해서
         Plan plan = planRepository.findById(planId);
         if(plan == null) throw new IllegalStateException("존재하지 않는 Plan");
         List<Schedule> schedules = plan.getSchedules();
         List<ScheduleResponseDTO> responseDTOs = new ArrayList<>();
 
-        for(Schedule schedule : schedules)
-            responseDTOs.add(schedule.scheduleResponseDTO());
-
+        for(Schedule schedule : schedules) {
+            ScheduleResponseDTO responseDTO = getScheduleResponseDTO(schedule);
+            responseDTOs.add(responseDTO);
+        }
         return responseDTOs;
     }
 
+    private static ScheduleResponseDTO getScheduleResponseDTO(Schedule schedule) {
+        ScheduleResponseDTO responseDTO = new ScheduleResponseDTO();
+        Place place = schedule.getPlace();
 
+        responseDTO.setStartTime(schedule.getStartTime());
+        responseDTO.setEndTime(schedule.getEndTime());
+        responseDTO.setScheduleText(schedule.getScheduleText());
+        if(place != null) {
+            responseDTO.setName(place.getName());
+            responseDTO.setImageURL(place.getImageURL());
+            responseDTO.setAddress(place.getAddress());
+            responseDTO.setRate(place.getRate());
+        }
+
+        return responseDTO;
+    }
 
 
 }

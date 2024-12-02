@@ -14,5 +14,9 @@ public class ScheduleResponseDTO {
     private OffsetDateTime startTime;
     private OffsetDateTime endTime;
     private String scheduleText;
-    private Long placeId;
+//    private Long placeId;
+    private String name;
+    private String imageURL;
+    private String address;
+    private float rate;
 }

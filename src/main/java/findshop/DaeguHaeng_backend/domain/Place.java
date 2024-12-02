@@ -23,7 +23,7 @@ public abstract class Place {
     private Long id;
     @NotNull
     private String name;
-//    @NotNull
+    //    @NotNull
     private String address;
     @NotNull
     private float rate;

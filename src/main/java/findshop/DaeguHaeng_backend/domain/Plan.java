@@ -28,8 +28,10 @@ public class Plan {
     @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     private List<Schedule> schedules = new ArrayList<Schedule>();
 
-    @NotNull
+//    @NotNull
     private String title;
+
+
 
     @NotNull
     private int budget;

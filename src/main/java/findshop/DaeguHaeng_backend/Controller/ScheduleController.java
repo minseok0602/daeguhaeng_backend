@@ -32,7 +32,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/{userId}/get/{planId}")
-    public ResponseEntity<?> getSchedule(@PathVariable Long planId) {
+    public ResponseEntity<?> getSchedule(@PathVariable Long planId) { // sche
         List<?> schedules = scheduleService.findByPlanId(planId);
         return new ResponseEntity<>(schedules,HttpStatus.OK);
     }

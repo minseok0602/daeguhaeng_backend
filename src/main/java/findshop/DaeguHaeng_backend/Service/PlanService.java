@@ -60,7 +60,7 @@ public class PlanService {
         plan.setSex(request.getSex());
         plan.setAge(request.getAge());
         plan.setBudget(request.getBudget());
-
+        plan.setTitle(request.getTitle());
         return plan.planResponseDTO();
     }
 
