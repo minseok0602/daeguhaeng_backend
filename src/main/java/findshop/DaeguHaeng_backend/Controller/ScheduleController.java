@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/schedule")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173/") // 클라이언트 Origin 허용
+@CrossOrigin(origins = "*") // 클라이언트 Origin 허용
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
