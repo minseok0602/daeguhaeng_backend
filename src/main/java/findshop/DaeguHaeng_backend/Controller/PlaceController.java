@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController("/api/place")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5173/") // 클라이언트 Origin 허용
 public class PlaceController {
     final PlaceService placeService;
     /*@GetMapping("/{placeId}")

@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/api/recommendation")
-@CrossOrigin(origins = "http://localhost:5173/") // 클라이언트 Origin 허용
 public class APIController {
 
     private final String FLASK_API_URL = "http://127.0.0.1:5000/api/recommend";
